@@ -178,15 +178,99 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
+				<version>3.1.0</version>
+				<configuration>
+					<finalName>redis-session-manager-with-dependencies-${project.version}</finalName>					
+					<relocations combine.children="append">
+						<relocation>
+							<pattern>org.redisson</pattern>
+							<shadedPattern>com.crimsonhexagon.rsm.org.redisson</shadedPattern>
+							<includes>
+							   <include>org.redisson.**</include>
+							</includes>
+						</relocation>
+						<relocation>
+							<pattern>io.netty</pattern>
+							<shadedPattern>com.crimsonhexagon.rsm.io.netty</shadedPattern>
+							<includes>
+							   <include>io.netty.**</include>
+							</includes>
+						</relocation>
+						<relocation>
+							<pattern>javax.cache</pattern>
+							<shadedPattern>com.crimsonhexagon.rsm.javax.cache</shadedPattern>
+							<includes>
+							   <include>javax.cache.**</include>
+							</includes>
+						</relocation>
+						<relocation>
+							<pattern>reactor</pattern>
+							<shadedPattern>com.crimsonhexagon.rsm.reactor</shadedPattern>
+							<includes>
+							   <include>reactor.**</include>
+							</includes>
+						</relocation>
+						<relocation>
+							<pattern>org.reactivestreams</pattern>
+							<shadedPattern>com.crimsonhexagon.rsm.org.reactivestreams</shadedPattern>
+							<includes>
+							   <include>org.reactivestreams.**</include>
+							</includes>
+						</relocation>
+						<relocation>
+							<pattern>com.fasterxml</pattern>
+							<shadedPattern>com.crimsonhexagon.rsm.com.fasterxml</shadedPattern>
+							<includes>
+							   <include>com.fasterxml.**</include>
+							</includes>
+						</relocation>
+						<relocation>
+							<pattern>org.slf4j</pattern>
+							<shadedPattern>com.crimsonhexagon.rsm.org.slf4j</shadedPattern>
+							<includes>
+							   <include>org.slf4j.**</include>
+							</includes>
+						</relocation>
+						<relocation>
+							<pattern>net.openhft</pattern>
+							<shadedPattern>com.crimsonhexagon.rsm.net.openhft</shadedPattern>
+							<includes>
+							   <include>net.openhft.**</include>
+							</includes>
+						</relocation>
+						<relocation>
+							<pattern>net.bytebuddy</pattern>
+							<shadedPattern>com.crimsonhexagon.rsm.net.bytebuddy</shadedPattern>
+							<includes>
+							   <include>net.bytebuddy.**</include>
+							</includes>
+						</relocation>
+						<relocation>
+							<pattern>jodd</pattern>
+							<shadedPattern>com.crimsonhexagon.rsm.jodd</shadedPattern>
+							<includes>
+							   <include>jodd.**</include>
+							</includes>
+						</relocation>
+						<relocation>
+							<pattern>org.yaml</pattern>
+							<shadedPattern>com.crimsonhexagon.rsm.org.yaml</shadedPattern>
+							<includes>
+							   <include>org.yaml.**</include>
+							</includes>
+						</relocation>
+					</relocations>
+					<transformers>
+						<transformer implementation="org.apache.maven.plugins.shade.resource.PluginXmlResourceTransformer"/>
+						<transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+					</transformers>
+				</configuration>
 				<executions>
 					<execution>
 						<phase>package</phase>
 						<goals>
 							<goal>shade</goal>
 						</goals>
-						<configuration>
-							<finalName>redis-session-manager-with-dependencies-${project.version}</finalName>
-						</configuration>
 					</execution>
 				</executions>
 			</plugin>
